@@ -1,2 +1,2 @@
 # SmallJavaProjects
-Small Java Projects
+This is my repository for small beginner java projects
