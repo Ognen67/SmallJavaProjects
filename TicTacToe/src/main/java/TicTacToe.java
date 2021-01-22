@@ -150,6 +150,4 @@ public class TicTacToe {
 
         return board[(value - 1) / 3][(value - 1) % 3] == '-';
     }
-
-
 }
