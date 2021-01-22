@@ -1,3 +1,5 @@
+package com.github.ognen67.gameoflife;
+
 public class Simulation {
 
     private int width;
