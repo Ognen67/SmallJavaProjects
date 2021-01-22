@@ -108,6 +108,9 @@ public class Simulation {
 
         simulation.step();
         simulation.printBoard();
+
+        simulation.step();
+        simulation.printBoard();
     }
 
 }
