@@ -74,7 +74,6 @@ public class TicTacToe {
         return false;
     }
 
-
     public static void main(String[] args) {
         char board[][] = new char[3][3];
         Scanner input = new Scanner(System.in);
