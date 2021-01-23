@@ -5,84 +5,82 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BoardView {
 
+    private final GameOfLifePresenter presenter;
+    private final AtomicInteger lastX = new AtomicInteger(-1);
+    private final AtomicInteger lastY = new AtomicInteger(-1);
+    private volatile boolean[][] board;
+    private JPanel panel;
+    private int tileSize = 5;
+    private int rows;
+    private int columns;
 
-	private final GameOfLifePresenter presenter;
-	private int size;
+    public BoardView(GameOfLifePresenter presenter) {
 
-	private final AtomicInteger lastX = new AtomicInteger(-1);
-	private final AtomicInteger lastY = new AtomicInteger(-1);
-	private volatile boolean[][] board ;
-	private JPanel panel;
+        this.presenter = presenter;
+    }
 
-	public BoardView(GameOfLifePresenter presenter, int size) {
+    public JPanel createBoardPanel() {
+        panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                columns = this.getWidth() / tileSize;
 
-		this.presenter = presenter;
-		this.size = size;
-		board = new boolean[size][size];
-	}
+                rows = this.getHeight() / tileSize;
+                System.out.println("Rows: " + rows + " Columns: " + columns);
+                board = presenter.getBoard(rows, columns);
+                int x = 0, y = 0;
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < columns; j++) {
+                        g.setColor(board[i][j] ? Color.GREEN : Color.BLACK);
+                        g.fillRect(x, y, tileSize, tileSize);
+                        x += tileSize;
+                    }
+                    y += tileSize;
+                    x = 0;
+                }
+            }
+        };
 
-	public JPanel createBoardPanel() {
-		panel = new JPanel() {
-			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
+        panel.setBackground(Color.GRAY);
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                getSelectedTile(e).ifPresent(value -> presenter.flipTile(value.x, value.y));
+            }
+        });
+        panel.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                getSelectedTile(e).ifPresent(point -> {
+                    if (lastX.intValue() == point.x && lastY.intValue() == point.y) {
+                        return;
+                    }
+                    lastX.set(point.x);
+                    lastY.set(point.y);
+                    presenter.flipTile(point.x, point.y);
+                });
+            }
+        });
+        return panel;
+    }
 
-				int x, y;
-				int widthPerOne = this.getWidth() / size;
-				int heightPerOne = this.getHeight() / size;
-				int squareLength = Math.min(widthPerOne, heightPerOne);
-				x = (this.getWidth() - squareLength * size) / 2;
-				y = (this.getHeight() - squareLength * size) / 2;
-				for (int i = 0; i < size; i++) {
-					for (int j = 0; j < size; j++) {
-						g.setColor(board[i][j]? Color.GREEN:Color.BLACK);
-						g.fillRect(x, y, squareLength, squareLength);
-						y += squareLength;
-					}
-					x += squareLength;
-					y = (this.getHeight() - squareLength * size) / 2;
-				}
-			}
-		};
+    private Optional<Point> getSelectedTile(MouseEvent e) {
+        int x = (e.getY()) / tileSize;
+        int y = (e.getX()) / tileSize;
+        if (x >= rows || y >= columns || x < 0 || y < 0) {
+            return Optional.empty();
+        }
+        return Optional.of(new Point(x, y));
+    }
 
-		panel.setBackground(Color.GRAY);
-		panel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				Point point = getSelectedTile(e, panel);
-				presenter.flipTile(point.x, point.y);
-			}
-		});
-		panel.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				Point point = getSelectedTile(e, panel);
-				if (lastX.intValue() == point.x && lastY.intValue() == point.y) {
-					return;
-				}
-				lastX.set(point.x);
-				lastY.set(point.y);
-				presenter.flipTile(point.x, point.y);
-			}
-		});
-		return panel;
-	}
-
-	private Point getSelectedTile(MouseEvent e, JPanel panel) {
-		int squareLength = Math.min(panel.getWidth() / size, panel.getHeight() / size);
-		int xMargin = (panel.getWidth() - squareLength * size) / 2;
-		int yMargin = (panel.getHeight() - squareLength * size) / 2;
-		int i = (e.getX() - xMargin) / squareLength;
-		int j = (e.getY() - yMargin) / squareLength;
-		return new Point(i, j);
-	}
-
-	public void drawBoard(boolean[][] board) {
-		this.board=board;
-		panel.repaint();
-	}
+    public void drawBoard(boolean[][] board) {
+        this.board = board;
+        panel.repaint();
+    }
 }

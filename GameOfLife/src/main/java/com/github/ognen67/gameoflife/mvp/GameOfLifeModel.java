@@ -4,88 +4,118 @@ import java.util.Objects;
 
 public class GameOfLifeModel {
 
-	public static final int BOARD_SIZE = 150;
-	private boolean[][] board = new boolean[BOARD_SIZE][BOARD_SIZE];
 
-	public GameOfLifeModel() {
-		boolean isBlack = true;
-		for (int i = 0; i < BOARD_SIZE; i++) {
-			for (int j = 0; j < BOARD_SIZE; j++) {
-				board[i][j] = isBlack;
-				isBlack = !isBlack;
-			}
-			isBlack = !isBlack;
-		}
-	}
+    private boolean[][] board = new boolean[10][10];
+    private int rows;
+    private int columns;
 
-	public boolean[][] getBoard() {
-		return board;
-	}
+    public GameOfLifeModel() {
+        boolean isBlack = true;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                board[i][j] = isBlack;
+                isBlack = !isBlack;
+            }
+            isBlack = !isBlack;
+        }
+    }
 
-	public boolean[][] step() {
+    public boolean[][] getBoard() {
+        return board;
+    }
 
-		boolean[][] newBoard = new boolean[BOARD_SIZE][BOARD_SIZE];
+    public boolean[][] step() {
 
-		for (int x = 0; x < BOARD_SIZE; x++) {
-			for (int y = 0; y < BOARD_SIZE; y++) {
-				int aliveNeighbours = countAliveNeighbours(x, y);
-				if (getState(x, y) == 1) {
-					if (aliveNeighbours < 2) {
-						newBoard[x][y] = false;
-					} else if (aliveNeighbours == 2 || aliveNeighbours == 3) {
-						newBoard[x][y] = true;
-					} else if (aliveNeighbours > 3) {
-						newBoard[x][y] = false;
-					}
-				} else {
-					if (aliveNeighbours == 3) {
-						newBoard[x][y] = true;
-					}
-				}
-			}
-		}
-		board = newBoard;
-		return board;
-	}
+        boolean[][] newBoard = new boolean[rows][columns];
 
-	public int countAliveNeighbours(int x, int y) {
-		int count = 0;
+        for (int x = 0; x < rows; x++) {
+            for (int y = 0; y < columns; y++) {
+                int aliveNeighbours = countAliveNeighbours(x, y);
+                if (getState(x, y) == 1) {
+                    if (aliveNeighbours < 2) {
+                        newBoard[x][y] = false;
+                    } else if (aliveNeighbours == 2 || aliveNeighbours == 3) {
+                        newBoard[x][y] = true;
+                    } else if (aliveNeighbours > 3) {
+                        newBoard[x][y] = false;
+                    }
+                } else {
+                    if (aliveNeighbours == 3) {
+                        newBoard[x][y] = true;
+                    }
+                }
+            }
+        }
+        board = newBoard;
+        return board;
+    }
 
-		count += getState(x - 1, y - 1);
-		count += getState(x, y - 1);
-		count += getState(x + 1, y - 1);
+    public int countAliveNeighbours(int x, int y) {
+        int count = 0;
 
-		count += getState(x - 1, y);
-		count += getState(x + 1, y);
+        count += getState(x - 1, y - 1);
+        count += getState(x, y - 1);
+        count += getState(x + 1, y - 1);
 
-		count += getState(x - 1, y + 1);
-		count += getState(x, y + 1);
-		count += getState(x + 1, y + 1);
+        count += getState(x - 1, y);
+        count += getState(x + 1, y);
 
-		return count;
-	}
+        count += getState(x - 1, y + 1);
+        count += getState(x, y + 1);
+        count += getState(x + 1, y + 1);
 
-	public int getState(int x, int y) {
-		if (x < 0 || x >= BOARD_SIZE) {
-			return 0;
-		}
-		if (y < 0 || y >= BOARD_SIZE) {
-			return 0;
-		}
-		if (board[x][y]) {
-			return 1;
-		}
-		return 0;
-	}
+        return count;
+    }
 
-	public boolean[][] flipTile(int i, int j) {
-		Objects.checkIndex(i, BOARD_SIZE);
-		Objects.checkIndex(j, BOARD_SIZE);
-		board[i][j] = !board[i][j];
-		return board;
-	}
+    public int getState(int x, int y) {
+        if (x < 0 || x >= rows) {
+            return 0;
+        }
+        if (y < 0 || y >= columns) {
+            return 0;
+        }
+        if (board[x][y]) {
+            return 1;
+        }
+        return 0;
+    }
 
-	public int getSize() {
-		return BOARD_SIZE;
-	}
+    public boolean[][] flipTile(int i, int j) {
+        Objects.checkIndex(i, rows);
+        Objects.checkIndex(j, columns);
+        board[i][j] = !board[i][j];
+        return board;
+    }
+
+    @Deprecated
+    public int getSize() {
+        return 10;
+    }
+
+    public void resizeBoard(int rows, int columns) {
+        if (this.rows == rows && this.columns == columns) {
+            return;
+        }
+        this.rows = rows;
+        this.columns = columns;
+
+        boolean[][] newBoard = new boolean[rows][columns];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                newBoard[i][j] = getNextValue(i, j);
+            }
+        }
+        board = newBoard;
+    }
+
+    private boolean getNextValue(int i, int j) {
+        if (i < board.length) {
+            boolean[] rowI = board[i];
+            if (j < rowI.length) {
+                return rowI[j];
+            }
+        }
+        return false;
+    }
 }
