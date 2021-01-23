@@ -30,9 +30,7 @@ public class BoardView {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 columns = this.getWidth() / tileSize;
-
                 rows = this.getHeight() / tileSize;
-                System.out.println("Rows: " + rows + " Columns: " + columns);
                 board = presenter.getBoard(rows, columns);
                 int x = 0, y = 0;
                 for (int i = 0; i < rows; i++) {
