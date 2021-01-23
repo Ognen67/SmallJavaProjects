@@ -15,18 +15,18 @@ public class GameOfLifeView {
         presenter.start();
     }
 
-    private GameOfLifePresenter presenter;
+    private final GameOfLifePresenter presenter;
     private BoardView boardView;
 
     public GameOfLifeView(GameOfLifePresenter presenter) {
         this.presenter = presenter;
     }
 
-    public void drawView(int boardSize) {
+    public void drawView() {
         JFrame window = new JFrame();
         window.setLayout(new GridBagLayout());
         addControlPanel(window);
-        addBoardPanel(window, boardSize);
+        addBoardPanel(window);
         window.setSize(400, 400);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
@@ -40,7 +40,7 @@ public class GameOfLifeView {
         window.add(buildControlsPanel(), gbc);
     }
 
-    private void addBoardPanel(JFrame window, int size) {
+    private void addBoardPanel(JFrame window) {
         GridBagConstraints gbc2 = new GridBagConstraints();
         gbc2.gridy = 1;
         gbc2.gridx = 0;
@@ -85,8 +85,10 @@ public class GameOfLifeView {
         dropdown.addItem(1000);
         dropdown.setSelectedItem(1000);
         dropdown.addActionListener(e -> {
-            int speed = (int) dropdown.getSelectedItem();
-            presenter.setSpeed(speed);
+            Integer speed = (Integer) dropdown.getSelectedItem();
+            if (speed != null) {
+                presenter.setSpeed(speed);
+            }
 
         });
         return dropdown;

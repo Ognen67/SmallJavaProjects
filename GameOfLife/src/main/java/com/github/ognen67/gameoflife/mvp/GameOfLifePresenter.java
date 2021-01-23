@@ -19,7 +19,7 @@ public class GameOfLifePresenter {
     }
 
     public void start() {
-        view.drawView(model.getSize());
+        view.drawView();
         view.drawBoard(model.getBoard());
         startPlayLoop();
     }

@@ -15,7 +15,7 @@ public class BoardView {
     private final AtomicInteger lastY = new AtomicInteger(-1);
     private volatile boolean[][] board;
     private JPanel panel;
-    private int tileSize = 5;
+    private final int tileSize = 5;
     private int rows;
     private int columns;
 
