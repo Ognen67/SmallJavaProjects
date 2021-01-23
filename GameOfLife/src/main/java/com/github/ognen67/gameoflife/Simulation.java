@@ -95,7 +95,7 @@ public class Simulation {
         Simulation simulation = new Simulation(8, 5);
         simulation.setAlive(2, 2);
         simulation.setAlive(2, 3);
-        simulation.setAlive(4, 2);
+        simulation.setAlive(2, 4);
 
         simulation.printBoard();
 

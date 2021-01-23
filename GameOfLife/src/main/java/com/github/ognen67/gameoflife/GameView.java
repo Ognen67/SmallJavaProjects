@@ -2,9 +2,7 @@ package com.github.ognen67.gameoflife;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameView {
@@ -13,6 +11,8 @@ public class GameView {
     static boolean isBlack = false;
     static AtomicInteger lastX = new AtomicInteger(-1);
     static AtomicInteger lastY = new AtomicInteger(-1);
+    private static boolean run;
+    private static int speed = 1000;
 
     public static void main(String[] args) {
 
@@ -21,9 +21,7 @@ public class GameView {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 board[i][j] = isBlack;
-//                isBlack = !isBlack;
             }
-//            isBlack = !isBlack;
         }
         JFrame window = new JFrame();
         JPanel panel = new JPanel() {
@@ -65,31 +63,56 @@ public class GameView {
             }
         });
 
-        JButton b = new JButton("Step");
+        JComboBox<Integer> dropdown = new JComboBox<>();
+        dropdown.addItem(1);
+        dropdown.addItem(2);
+        dropdown.addItem(5);
+        dropdown.addItem(50);
+        dropdown.addItem(500);
+        dropdown.addItem(750);
+        dropdown.addItem(1000);
+        dropdown.setSelectedItem(speed);
+        dropdown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                speed = (int) dropdown.getSelectedItem();
+            }
+        });
+
+        panel.add(dropdown);
+        JButton b = new JButton("Play");
         b.setSize(60, 100);
         b.setBounds(50, 100, 60, 30);
         b.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                System.out.println("Clicked");
-                board = gameView.step(board, panel);
-                panel.repaint();
+                run = !run;
+                b.setText(run ? "Pause" : "Play");
             }
         });
-
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    if (run) {
+                        board = gameView.step();
+                        panel.repaint();
+                    }
+                    try {
+                        Thread.sleep(speed);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
         window.add(panel);
         panel.add(b);
         window.setSize(400, 400);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
     }
 
     public void setAlive(int x, int y) {
@@ -130,14 +153,13 @@ public class GameView {
         return 0;
     }
 
-    public boolean[][] step(boolean[][] board, JPanel panel) {
+    public boolean[][] step() {
 
         boolean[][] newBoard = new boolean[8][8];
 
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 int aliveNeighbours = countAliveNeighbours(x, y);
-                System.out.println(aliveNeighbours);
                 if (getState(x, y) == 1) {
                     if (aliveNeighbours < 2) {
                         newBoard[x][y] = false;
@@ -153,8 +175,7 @@ public class GameView {
                 }
             }
         }
-        board = newBoard;
-        return board;
+        return newBoard;
     }
 
     private static void changeTileState(MouseEvent e, JPanel panel, boolean[][] grid, AtomicInteger lastX, AtomicInteger lastY) {
