@@ -18,9 +18,6 @@ public class BattleshipChar {
         initializeBoard(board2);
         printBoard(board2);
 
-        numOfShips(board1);
-
-
         while (!gameEnds(board1, board2)) {
             System.out.println("Enter coordinates to sink a ship!");
             i = input.nextInt();
@@ -54,15 +51,20 @@ public class BattleshipChar {
     }
 
     private static void initializeBoard(char[][] board) {
-        board[0][5] = 's';
-        board[1][5] = 's';
-        board[2][5] = 's';
+        setShip(board, 0, 5);
+        setShip(board, 1, 5);
+        setShip(board, 2, 5);
 
-        board[3][0] = 's';
-        board[3][1] = 's';
-        board[3][2] = 's';
-        board[3][3] = 's';
+        setShip(board, 3, 0);
+        setShip(board, 3, 1);
+        setShip(board, 3, 2);
+        setShip(board, 3, 3);
     }
+
+    private static void setShip(char[][] board, int i, int j) {
+        board[i][j] = 's';
+    }
+
 
     private static void createBoard(char[][] charBoard) {
         for (int i = 0; i < numOfTiles; i++) {
