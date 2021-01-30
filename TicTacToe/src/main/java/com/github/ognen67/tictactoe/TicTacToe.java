@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
+    private static void printInitialMessage() {
+        System.out.println("Enter a number between 1 and 9");
+    }
+
     private static void printBoard(char[][] board) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -83,6 +87,7 @@ public class TicTacToe {
 
         initializeBoard(board);
 
+        printInitialMessage();
         printBoard(board);
 
         while (true) {
