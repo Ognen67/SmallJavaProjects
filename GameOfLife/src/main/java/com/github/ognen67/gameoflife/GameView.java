@@ -14,7 +14,7 @@ public class GameView {
     private static boolean run;
     private static int speed = 1000;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         GameView gameView = new GameView();
 
@@ -112,6 +112,9 @@ public class GameView {
         window.setSize(400, 400);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
+
+
+
 
     }
 
