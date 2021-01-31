@@ -1,6 +1,9 @@
 public class Espresso extends Drink {
 
-    public Espresso(int coffee, int milk, int sugar) {
-        super(coffee, milk, sugar);
+    public Espresso(int water, int coffeeBeans) {
+        this.water = water;
+        this.coffeeBeans = coffeeBeans;
+        this.plasticCups = 1;
     }
+
 }

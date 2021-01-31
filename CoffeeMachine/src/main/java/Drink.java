@@ -1,16 +1,19 @@
 public class Drink {
 
-    private int coffee;
-    private int milk;
-    private int sugar;
+    protected int water;
+    protected int milk;
+    protected int coffeeBeans;
+    protected int sugar;
+    protected int plasticCups;
 
-    public Drink(int coffee, int milk, int sugar) {
-        this.coffee = coffee;
+    public Drink(int water, int milk, int coffeeBeans, int sugar, int plasticCups) {
+        this.water = water;
         this.milk = milk;
+        this.coffeeBeans = coffeeBeans;
         this.sugar = sugar;
+        this.plasticCups = plasticCups;
     }
 
-    public void print() {
-        System.out.println("Coffee: " + this.coffee + " Sugar: " + this.milk + " Cream: " + this.sugar);
+    public Drink() {
     }
 }
