@@ -1,3 +1,5 @@
+package com.github.ognen67.battleship;
+
 import java.util.Scanner;
 
 public class BattleshipChar {

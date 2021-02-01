@@ -25,7 +25,7 @@ public class CoffeeMachine {
                 machine.buyCoffee(input.nextInt());
             }
             if (value.equals("fill")) {
-
+                machine.fill();
             }
             if (value.equals("take")) {
 
