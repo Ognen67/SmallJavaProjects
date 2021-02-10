@@ -51,8 +51,8 @@ public class BattleshipView {
 
         window.setTitle("Battleship");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ImageIcon image = new ImageIcon("C:\\Users\\todor\\Desktop\\SmallJavaProjects\\Battleship\\src\\main\\java\\com\\github\\ognen67\\battleship\\gui\\assets\\logo.png");
-        window.setIconImage(image.getImage());
         window.add(panel);
+        ImageIcon image = new ImageIcon("C:\\Users\\todor\\Desktop\\SmallJavaProjects\\Battleship\\battleshiplogo.png");
+        window.setIconImage(image.getImage());
     }
 }
