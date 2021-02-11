@@ -34,7 +34,6 @@ public class StreamsTest {
         // returns the odd numbers of a list
         System.out.println(getOddNumbers(numbers));
 
-
     }
 
     private static List<Integer> getOddNumbers(List<Integer> numbers) {
