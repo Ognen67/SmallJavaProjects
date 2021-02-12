@@ -2,7 +2,9 @@ package com.github.ognen67.streams;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class StreamsTest {
@@ -41,6 +43,15 @@ public class StreamsTest {
         System.out.println(numbers.stream().filter(number -> number % 2 == 0).reduce(Integer::sum));
 
         System.out.println(getEvenNumbers(numbers).stream().reduce(Integer::sum));
+
+        // Double the even numbers and print the sum of them
+        System.out.println(numbers.stream().filter(x -> x % 2 == 0).reduce(0, (result, x) -> result += x * 2));
+
+        System.out.println(numbers.stream().filter(x -> x % 2 == 0).map(x -> x * 2).reduce(0, (result, x) -> result += x));
+
+        IntStream intStream = IntStream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        System.out.println(intStream.filter(x -> x % 2 == 0).map(x -> x * 2).sum());
+
     }
 
     private static List<Integer> getOddNumbers(List<Integer> numbers) {
