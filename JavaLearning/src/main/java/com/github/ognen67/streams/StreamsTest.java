@@ -34,6 +34,13 @@ public class StreamsTest {
         // returns the odd numbers of a list
         System.out.println(getOddNumbers(numbers));
 
+        // Prints the sum of the numbers ArrayList
+        System.out.println(numbers.stream().reduce(0, Integer::sum));
+
+        // Sum of the even numbers
+        System.out.println(numbers.stream().filter(number -> number % 2 == 0).reduce(Integer::sum));
+
+        System.out.println(getEvenNumbers(numbers).stream().reduce(Integer::sum));
     }
 
     private static List<Integer> getOddNumbers(List<Integer> numbers) {
