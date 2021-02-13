@@ -1,6 +1,6 @@
 public class LuhnAlgorithm {
 
-    public static boolean luhnAlgorithm(String cardNumber) {
+    public boolean luhnAlgorithm(String cardNumber) {
         int numDigits = cardNumber.length();
 
         int numSum = 0;
@@ -16,13 +16,5 @@ public class LuhnAlgorithm {
             isSecond = !isSecond;
         }
         return (numSum % 10) == 0;
-    }
-
-    public static void main(String[] args) {
-        String cardNumber = "79927398713";
-
-        System.out.println(luhnAlgorithm(cardNumber));
-
-
     }
 }
