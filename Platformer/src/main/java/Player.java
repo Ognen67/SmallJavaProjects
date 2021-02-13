@@ -23,25 +23,28 @@ public class Player {
     }
 
     public void update() {
-        yPos += GRAVITY;
+        gravity = 10;
+
+        yPos += gravity;
 
         if (jump) {
-            yPos -= GRAVITY + 10;
-            jumpHeight -= GRAVITY;
+            yPos -= gravity + 10;
+            jumpHeight -= gravity;
             isGrounded = false;
 
-            if (jumpHeight == 0) jump = false;
-        }
-        else {
+            if (jumpHeight <= 0) jump = false;
+        } else {
             jumpHeight = jumpLimit;
         }
 
+        xPos += speedX;
+
         if (left) {
-            xPos -= 5;
+            speedX = -5;
         }
 
         if (right) {
-            xPos += 5;
+            speedX = 5;
         }
     }
 
