@@ -38,9 +38,6 @@ public class Platform {
                 player.setPosition(player.getPosition()[0], yPos-64);
                 Player.isGrounded = true;
             }
-
-            System.out.println("x:" + player.getPosition()[0]);
-            System.out.println("y:" + player.getPosition()[1]);
         }
     }
 
