@@ -3,17 +3,22 @@ import java.awt.*;
 public class Player {
     private int xPos, yPos, width, height;
 
-    public final double GRAVITY = 10;
+    public int speedX;
+
+    public double gravity;
 
     public static boolean jump, left, right, isGrounded;
 
-    int jumpLimit = 100, jumpHeight = 0;
+    int jumpLimit = 128, jumpHeight = 0;
 
     public Player(int xPos, int yPos, int width, int height) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;
         this.height = height;
+
+        speedX = 5;
+        gravity = 10.0;
     }
 
     public void render(Graphics g) {
@@ -45,6 +50,10 @@ public class Player {
 
         if (right) {
             speedX = 5;
+        }
+
+        if(!left && !right) {
+            speedX = 0;
         }
     }
 

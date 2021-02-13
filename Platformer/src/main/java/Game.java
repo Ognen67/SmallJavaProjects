@@ -26,20 +26,30 @@ public class Game {
     };
 
     public Game() {
-        player = new Player(700,200, 50,100);
+        player = new Player(64 * 2, 64 * 2, 64, 64);
 
-        platform = new Platform(700,600, 600,50, player);
+        for (int x = 0; x < map.length; x++) {
+            for (int y = 0; y < map.length; y++) {
+                if (map[y][x] == 1) {
+                    platforms.add(new Platform(x * 64, y * 64, player));
+                }
+            }
+        }
     }
 
     public void render(Graphics g) {
         player.render(g);
 
-        platform.render(g);
+        for (Platform platform : platforms) {
+            platform.render(g);
+        }
     }
 
     public void update() {
         player.update();
 
-        platform.update();
+        for (Platform platform : platforms) {
+            platform.update();
+        }
     }
 }

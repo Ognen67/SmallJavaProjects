@@ -5,11 +5,11 @@ public class Platform {
 
     private Player player;
 
-    public Platform(int xPos, int yPos, int width, int height, Player player) {
+    public Platform(int xPos, int yPos, Player player) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.width = width;
-        this.height = height;
+        this.width = 64;
+        this.height = 64;
 
         this.player = player;
     }
@@ -25,9 +25,22 @@ public class Platform {
         Rectangle platformRect = new Rectangle(getPosition()[0],getPosition()[1], getSize()[0],getSize()[1]);
 
         if(playerRect.intersects(platformRect)) {
-            player.setPosition(player.getPosition()[0], (int)(player.getPosition()[1]-player.GRAVITY));
+            if(player.getPosition()[0] >= xPos && player.getPosition()[1] >= yPos) {
+                player.setPosition(xPos+65, player.getPosition()[1]);
+                Player.left = false;
+            }
+            if(player.getPosition()[0] <= xPos && player.getPosition()[1] >= yPos) {
+                player.setPosition(xPos-65, player.getPosition()[1]);
+                Player.right = false;
+            }
 
-            Player.isGrounded = true;
+            if(player.getPosition()[1] <= yPos || player.getPosition()[0] >= xPos && player.getPosition()[0] <= xPos+64) {
+                player.setPosition(player.getPosition()[0], yPos-64);
+                Player.isGrounded = true;
+            }
+
+            System.out.println("x:" + player.getPosition()[0]);
+            System.out.println("y:" + player.getPosition()[1]);
         }
     }
 
