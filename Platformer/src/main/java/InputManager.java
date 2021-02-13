@@ -10,12 +10,12 @@ public class InputManager implements KeyListener {
             System.out.println("space pressed");
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+        if(e.getKeyCode() == KeyEvent.VK_A) {
             Player.left = true;
             System.out.println("left pressed");
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        if(e.getKeyCode() == KeyEvent.VK_D) {
             Player.right = true;
             System.out.println("right pressed");
         }
@@ -23,11 +23,11 @@ public class InputManager implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+        if(e.getKeyCode() == KeyEvent.VK_A) {
             Player.left = false;
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        if(e.getKeyCode() == KeyEvent.VK_D) {
             Player.right = false;
         }
     }

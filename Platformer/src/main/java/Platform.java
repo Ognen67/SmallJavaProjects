@@ -29,6 +29,7 @@ public class Platform {
                 player.setPosition(xPos+65, player.getPosition()[1]);
                 Player.left = false;
             }
+
             if(player.getPosition()[0] <= xPos && player.getPosition()[1] >= yPos) {
                 player.setPosition(xPos-65, player.getPosition()[1]);
                 Player.right = false;
