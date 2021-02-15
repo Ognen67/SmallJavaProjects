@@ -1,16 +1,8 @@
 public class Pawn extends Piece {
 
-    public Pawn(String myPieceColor){
-        this.pieceColor = myPieceColor;
-
-        if(pieceColor.equals("white")){
-
-
-        }
-        else{
-
-        }
-
+    public Pawn(String pieceColor, int[] piecePosition) {
+        super(pieceColor, piecePosition);
+        this.pieceValue = 1;
     }
 
     public int[] movePiece() {

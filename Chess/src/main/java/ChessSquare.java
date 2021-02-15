@@ -17,7 +17,7 @@ public class ChessSquare {
     private int pieceValue;
 
     public ChessSquare() {
-        this.pieceValue = -1;
+        this.pieceValue = 0;
     }
 
     public ChessSquare(String color) {
@@ -27,7 +27,7 @@ public class ChessSquare {
 
     public ChessSquare(Piece pieceOnSquare) {
         this.pieceOnSquare = pieceOnSquare;
-        this.pieceValue = pieceValue;
+        this.pieceValue = pieceOnSquare.getPieceValue();
     }
 
     public ChessSquare(String color, Piece pieceOnSquare) {

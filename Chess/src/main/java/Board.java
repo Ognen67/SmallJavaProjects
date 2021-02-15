@@ -4,25 +4,34 @@ public class Board {
 
     static ChessSquare[][] board = new ChessSquare[8][8];;
 
-    public Board(){
+    public Board() {
 
-        this.board = new ChessSquare[8][8];
+        /* Piece value is as follows:
 
-        /* 0 = white pawns
-           1 = black pawns
-           2 = white rooks
-           3 = black rooks
-           4 = white knights
-           5 = black knights
-           6 = white bishop
-           7 = black bishop
-           8 = white queen
-           9 = black queen
-           10 = white king
-           11 = black king
-         */
+    No piece: 0 or -1
+    Pawn: 1 point (or pawn)
+    Knight: 3 points
+    Bishop: 3 points
+    Rook: 5 points
+    Queen: 9 points
+    King: 10 points
+     */
 
-        int[] pieceAmounts = {8,8,2,2,2,2,2,2,1,1};
+        //int[] pieceAmounts = {8,8,2,2,2,2,2,2,1,1};
+
+        boolean isWhite = true;
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (isWhite) {
+                    board[i][j] = new ChessSquare("white");
+                } else {
+                    board[i][j] = new ChessSquare("black");
+                }
+                isWhite = !isWhite;
+            }
+            isWhite = !isWhite;
+        }
 
         //White pawn setter
         for (int i = 0; i < 8; i++) {
@@ -31,7 +40,7 @@ public class Board {
 
         //Black pawn setter
         for (int i = 0; i < 8; i++) {
-            board[1][i] = new ChessSquare(new Pawn("black"), 1);
+            board[1][i].setPieceOnSquare(new Pawn("black", new int[]{1, i}));
         }
 
         //White Pieces
