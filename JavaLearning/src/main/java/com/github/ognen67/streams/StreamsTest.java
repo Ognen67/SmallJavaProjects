@@ -60,6 +60,26 @@ public class StreamsTest {
                 .filter(e -> e % 2 == 0)
                 .map(e -> e * 2)
                 .findFirst());
+
+        List<Integer> lista = new ArrayList<>(List.of(1,2,3,4,5,6,7,8,9,10));
+
+        int sum = 0;
+        for (int i = 0; i < lista.size(); i++) {
+            if(lista.get(i) > 3 && lista.get(i) % 2 == 0) {
+                sum += lista.get(i) * 2;
+            }
+        }
+
+        System.out.println(sum);
+
+        sum = lista.stream()
+                .filter(e -> e > 3)
+                .filter(e -> e % 2 == 0)
+                .mapToInt(e -> e * 2)
+                .sum();
+
+        System.out.println(sum);
+
     }
 
     private static List<Integer> getOddNumbers(List<Integer> numbers) {

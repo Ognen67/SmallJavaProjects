@@ -1,2 +1,2 @@
-JMH S 39 com.github.ognen67.threading.ThreadTest S 73 com.github.ognen67.threading.generated.ThreadTest_threadLongAdder_jmhTest S 15 threadLongAdder S 10 Throughput E A 1 1 1 E E E E E E E E E E E E E E E E E 
 JMH S 39 com.github.ognen67.threading.ThreadTest S 70 com.github.ognen67.threading.generated.ThreadTest_threadAtomic_jmhTest S 12 threadAtomic S 10 Throughput E A 1 1 1 E E E E E E E E E E E E E E E E E 
+JMH S 39 com.github.ognen67.threading.ThreadTest S 73 com.github.ognen67.threading.generated.ThreadTest_threadLongAdder_jmhTest S 15 threadLongAdder S 10 Throughput E A 1 1 1 E E E E E E E E E E E E E E E E E 

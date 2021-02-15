@@ -20,28 +20,38 @@ public class ChessSquare {
         this.pieceValue = -1;
     }
 
-    public ChessSquare(String myColor){
-
-        this.color = myColor;
-        this.pieceValue = -1;
+    public ChessSquare(String color) {
+        this.color = color;
+        this.pieceValue = 0;
     }
 
-    public ChessSquare(String myColor, int myValue){
-
-        this.color = myColor;
-        this.pieceValue = myValue;
-
-    }
-
-    public ChessSquare(Piece pieceOnSquare, int pieceValue) {
+    public ChessSquare(Piece pieceOnSquare) {
         this.pieceOnSquare = pieceOnSquare;
         this.pieceValue = pieceValue;
     }
 
-    public ChessSquare(String color, Piece pieceOnSquare, int pieceValue) {
+    public ChessSquare(String color, Piece pieceOnSquare) {
         this.color = color;
         this.pieceOnSquare = pieceOnSquare;
-        this.pieceValue = pieceValue;
+        this.pieceValue = pieceOnSquare.getPieceValue();
+    }
+
+    @Override
+    public String toString() {
+        return "pieceValue=" + pieceValue +
+                '}';
+    }
+
+    public Piece getPieceOnSquare() {
+        return pieceOnSquare;
+    }
+
+    public void setPieceOnSquare(Piece pieceOnSquare) {
+        this.pieceOnSquare = pieceOnSquare;
+    }
+
+    public void removePiece(){
+        this.pieceOnSquare = null;
     }
 
     public String getColor() {
