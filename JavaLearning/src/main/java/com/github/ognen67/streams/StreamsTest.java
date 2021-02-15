@@ -52,6 +52,14 @@ public class StreamsTest {
         IntStream intStream = IntStream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         System.out.println(intStream.filter(x -> x % 2 == 0).map(x -> x * 2).sum());
 
+        // Print first even element bigger than 3 doubled
+        List<Integer> list = new ArrayList<>(List.of(1, 2, 3, 5, 7, 6, 4, 8, 9, 10));
+        System.out.println(
+            list.stream()
+                .filter(e -> e > 3)
+                .filter(e -> e % 2 == 0)
+                .map(e -> e * 2)
+                .findFirst());
     }
 
     private static List<Integer> getOddNumbers(List<Integer> numbers) {
