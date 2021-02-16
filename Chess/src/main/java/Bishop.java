@@ -2,7 +2,7 @@ public class Bishop extends Piece {
 
     public Bishop(String pieceColor, int[] piecePosition) {
         super(pieceColor, piecePosition);
-        this.pieceValue = 3;
+        this.pieceValue = 4;
     }
 
     public int[] movePiece() {

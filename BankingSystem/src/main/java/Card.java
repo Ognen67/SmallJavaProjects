@@ -27,8 +27,13 @@ public class Card {
 
     public void deposit(int amount) {
         System.out.println("Choose amount to deposit");
-        this.money += amount;
-        System.out.println("Successfully deposited " + amount + " euros");
+        if(amount >= 0) {
+            this.money += amount;
+            System.out.println("Successfully deposited " + amount + " euros");
+        }
+        else {
+            System.out.println("Invalid input, enter a positive amount");
+        }
     }
 
     public void withdraw(int amount) {
